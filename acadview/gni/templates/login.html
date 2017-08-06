@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<form method='POST'>
+    {% csrf_token %}
+<div>
+    <br>
+<label for='username'>Username</label>
+<input id='username' type='text' name='username' value={{username}}>
+</div>
+<div>
+<label for='password'>Password</label>
+<input id='password' type='password' name='password' value={{password}}>
+</div>
+<input type='submit' value="Log in">
+    <br><br>Forgot Password?<br><br>
+
+    Get a new account here:
+    <a href="localhost:8000">
+        Click here
+    </a>
+    <br>(p.s. open Link in new Tab)
+</form>

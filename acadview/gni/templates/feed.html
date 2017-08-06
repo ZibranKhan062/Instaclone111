@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed</title>
+</head>
+<body>
+<center><h2><i><font face="Comic Sans MS"> Welcome to InstaClone</font></i></h2></center><br>
+<center>
+    {% for temp in posts %}
+<h2><i>Posted by: {{temp.user.username}}</i></h2>
+  <img src="{{temp.image_url}}"><br>
+  <span>
+      <u><b>Caption: </b></u>
+
+    {{temp.caption}}
+      <br>
+  </span>
+  <div style="display:inline-block">
+      <u><b> No. of likes:</b></u>
+      {{ temp.like_count }} likes
+  </div>
+  <form method="POST" action="/like/">
+      {% csrf_token %}
+      <input type="hidden" name="post" value="{{ temp.id }}">
+      {% if temp.has_liked %}
+          <input type="submit" class="btn btn-default" type="submit" value="Unlike">
+      {% else %}
+      <br><b>Like by clicking here:</b>
+          <input type="submit" class="btn btn-default" type="submit" value="Like">
+      {% endif %}
+  </form>
+  <form method="POST" action="/comment/">
+  {% csrf_token %}
+  <input type="hidden" name="post" value="{{ temp.id }}" ><br>
+  <input type="text" name="comment_text" id="comment_text" placeholder="Make a comment.." value="{{ comment_text }}">
+
+  <input type="submit" class="btn-default btn" value="Comment">
+</form>
+      <div>
+          {% for comment in temp.comments %}
+            From :{{ comment.user.username }}<br> {{ comment.created_on }}: {{ comment.comment_text }}<br>
+          {% endfor %}
+      </div>
+
+{% endfor %}
+</body>
+</html>
